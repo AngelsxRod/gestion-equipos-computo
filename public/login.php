@@ -31,12 +31,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 $titulo = 'Iniciar sesión';
 require __DIR__ . '/partials/layout_inicio.php';
 ?>
-<div class="login-caja">
+<div class="max-w-sm mx-auto mt-16 card">
     <h1>Iniciar sesión</h1>
     <?php if ($error): ?>
-        <div class="flash error"><?= e($error) ?></div>
+        <div class="flash-error"><?= e($error) ?></div>
     <?php endif; ?>
-    <form method="post" class="formulario" style="padding:0;max-width:none;">
+    <form method="post">
         <?= \App\Auth\Csrf::campoHtml() ?>
         <label for="nombre_usuario">Usuario</label>
         <input type="text" id="nombre_usuario" name="nombre_usuario" required autofocus>
@@ -44,8 +44,8 @@ require __DIR__ . '/partials/layout_inicio.php';
         <label for="password">Contraseña</label>
         <input type="password" id="password" name="password" required>
 
-        <div class="acciones">
-            <button type="submit">Entrar</button>
+        <div class="mt-6">
+            <button type="submit" class="btn-primary w-full justify-center">Entrar</button>
         </div>
     </form>
 </div>
