@@ -45,8 +45,8 @@ $titulo = 'Asignar equipo';
 require __DIR__ . '/../partials/layout_inicio.php';
 ?>
 <h1>Asignar equipo</h1>
-<?php if ($error): ?><div class="flash error"><?= e($error) ?></div><?php endif; ?>
-<form method="post" class="formulario">
+<?php if ($error): ?><div class="flash-error"><?= e($error) ?></div><?php endif; ?>
+<form method="post" class="card max-w-lg">
     <?= Csrf::campoHtml() ?>
 
     <label for="equipo_id">Equipo</label>
@@ -75,9 +75,9 @@ require __DIR__ . '/../partials/layout_inicio.php';
 
     <p><em>Si el equipo ya tenía una asignación activa, se cerrará automáticamente con esta misma fecha.</em></p>
 
-    <div class="acciones">
-        <button type="submit">Asignar</button>
-        <a class="boton secundario" href="/equipos/listar.php">Cancelar</a>
+    <div class="mt-6 flex gap-2">
+        <button type="submit" class="btn-primary">Asignar</button>
+        <a class="btn-secondary" href="/equipos/listar.php">Cancelar</a>
     </div>
 </form>
 <?php require __DIR__ . '/../partials/layout_fin.php'; ?>

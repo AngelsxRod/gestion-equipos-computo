@@ -33,12 +33,12 @@ require __DIR__ . '/../partials/layout_inicio.php';
 ?>
 <h1>Devolver equipo</h1>
 <p>¿Confirmas registrar la devolución de este equipo con fecha de hoy (<?= e(date('Y-m-d')) ?>)?</p>
-<form method="post" class="formulario">
+<form method="post" class="card max-w-lg">
     <?= Csrf::campoHtml() ?>
     <input type="hidden" name="asignacion_id" value="<?= (int) $asignacion['id'] ?>">
-    <div class="acciones">
-        <button type="submit">Sí, devolver</button>
-        <a class="boton secundario" href="/equipos/ver.php?id=<?= (int) $asignacion['equipo_id'] ?>">Cancelar</a>
+    <div class="mt-6 flex gap-2">
+        <button type="submit" class="btn-primary">Sí, devolver</button>
+        <a class="btn-secondary" href="/equipos/ver.php?id=<?= (int) $asignacion['equipo_id'] ?>">Cancelar</a>
     </div>
 </form>
 <?php require __DIR__ . '/../partials/layout_fin.php'; ?>

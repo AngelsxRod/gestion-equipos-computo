@@ -40,7 +40,8 @@ $titulo = $encabezado;
 require __DIR__ . '/../partials/layout_inicio.php';
 ?>
 <h1><?= e($encabezado) ?></h1>
-<table>
+<div class="table-wrap">
+<table class="table-base">
     <thead>
         <tr>
             <?php if ($tipoVista === 'equipo'): ?>
@@ -71,4 +72,5 @@ require __DIR__ . '/../partials/layout_inicio.php';
         <?php endif; ?>
     </tbody>
 </table>
+</div>
 <?php require __DIR__ . '/../partials/layout_fin.php'; ?>
