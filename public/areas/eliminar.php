@@ -36,12 +36,12 @@ require __DIR__ . '/../partials/layout_inicio.php';
 ?>
 <h1>Eliminar área</h1>
 <p>¿Confirmas eliminar el área "<strong><?= e($area['nombre']) ?></strong>"?</p>
-<form method="post" class="formulario">
+<form method="post" class="card max-w-lg">
     <?= Csrf::campoHtml() ?>
     <input type="hidden" name="id" value="<?= (int) $area['id'] ?>">
-    <div class="acciones">
-        <button type="submit" class="peligro">Sí, eliminar</button>
-        <a class="boton secundario" href="/areas/listar.php">Cancelar</a>
+    <div class="mt-6 flex gap-2">
+        <button type="submit" class="btn-danger">Sí, eliminar</button>
+        <a class="btn-secondary" href="/areas/listar.php">Cancelar</a>
     </div>
 </form>
 <?php require __DIR__ . '/../partials/layout_fin.php'; ?>

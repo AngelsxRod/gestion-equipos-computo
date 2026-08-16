@@ -34,14 +34,14 @@ $titulo = 'Nueva área';
 require __DIR__ . '/../partials/layout_inicio.php';
 ?>
 <h1>Nueva área</h1>
-<?php if ($error): ?><div class="flash error"><?= e($error) ?></div><?php endif; ?>
-<form method="post" class="formulario">
+<?php if ($error): ?><div class="flash-error"><?= e($error) ?></div><?php endif; ?>
+<form method="post" class="card max-w-lg">
     <?= Csrf::campoHtml() ?>
     <label for="nombre">Nombre</label>
     <input type="text" id="nombre" name="nombre" value="<?= e($_POST['nombre'] ?? '') ?>" required autofocus>
-    <div class="acciones">
-        <button type="submit">Guardar</button>
-        <a class="boton secundario" href="/areas/listar.php">Cancelar</a>
+    <div class="mt-6 flex gap-2">
+        <button type="submit" class="btn-primary">Guardar</button>
+        <a class="btn-secondary" href="/areas/listar.php">Cancelar</a>
     </div>
 </form>
 <?php require __DIR__ . '/../partials/layout_fin.php'; ?>
