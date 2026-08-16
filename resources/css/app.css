@@ -1,0 +1,58 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  h1 { @apply text-2xl font-bold text-slate-900 mb-4; }
+  h2 { @apply text-lg font-semibold text-slate-900 mt-8 mb-3; }
+  main a { @apply text-blue-600 hover:text-blue-800; }
+  label { @apply block text-sm font-medium text-slate-700 mt-4 mb-1; }
+  input, select, textarea {
+    @apply block w-full rounded-md border-slate-300 shadow-sm text-sm
+           focus:border-blue-500 focus:ring-1 focus:ring-blue-500;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center gap-1.5 rounded-md px-3.5 py-2 text-sm font-medium
+           transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-offset-2
+           disabled:opacity-50 disabled:cursor-not-allowed no-underline;
+  }
+  .btn-primary   { @apply btn bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500; }
+  .btn-secondary { @apply btn bg-slate-100 text-slate-700 hover:bg-slate-200 focus:ring-slate-400; }
+  .btn-danger    { @apply btn bg-red-600 text-white hover:bg-red-700 focus:ring-red-500; }
+
+  .card { @apply bg-white rounded-lg shadow-sm border border-slate-200 p-5; }
+
+  .badge { @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium; }
+  .badge-success  { @apply badge bg-green-100 text-green-800; }
+  .badge-warning  { @apply badge bg-amber-100 text-amber-800; }
+  .badge-danger   { @apply badge bg-red-100 text-red-700; }
+  .badge-admin    { @apply badge bg-indigo-100 text-indigo-800; }
+  .badge-consulta { @apply badge bg-slate-100 text-slate-700; }
+
+  .table-wrap { @apply overflow-x-auto bg-white rounded-lg shadow-sm border border-slate-200; }
+  .table-base { @apply min-w-full divide-y divide-slate-200 text-sm; }
+  .table-base th {
+    @apply bg-slate-50 px-4 py-2.5 text-left text-sm font-semibold text-slate-600 align-top;
+  }
+  .table-base thead th {
+    @apply text-xs font-semibold uppercase tracking-wide text-slate-500;
+  }
+  .table-base tbody td { @apply px-4 py-2.5 text-slate-700 border-t border-slate-100; }
+  .table-base tbody tr:hover { @apply bg-blue-50/60; }
+  .table-base tbody tr:nth-child(even) { @apply bg-slate-50/60; }
+
+  .flash { @apply flex items-center gap-2 rounded-md border px-4 py-3 mb-4 text-sm; }
+  .flash-exito { @apply flash bg-green-50 text-green-800 border-green-200; }
+  .flash-error { @apply flash bg-red-50 text-red-800 border-red-200; }
+
+  .filter-bar { @apply card flex flex-wrap gap-4 items-end mb-6; }
+  .kpi-card { @apply card flex flex-col gap-1; }
+  .kpi-value { @apply text-3xl font-bold text-slate-900; }
+  .kpi-label { @apply text-sm text-slate-500; }
+
+  .nav-link { @apply text-slate-200 hover:text-white text-sm font-medium px-1 py-1 no-underline; }
+  .nav-link-active { @apply nav-link text-white border-b-2 border-blue-400; }
+}
