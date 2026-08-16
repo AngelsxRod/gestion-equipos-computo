@@ -95,3 +95,22 @@ function validar_datos_equipo(array $datos): ?string
 
     return null;
 }
+
+function badge_estado_equipo(string $estado): string
+{
+    $mapa = [
+        'activo' => ['badge-success', 'Activo'],
+        'en_reparacion' => ['badge-warning', 'En reparación'],
+        'de_baja' => ['badge-danger', 'De baja'],
+    ];
+    [$clase, $texto] = $mapa[$estado] ?? ['badge-consulta', $estado];
+
+    return '<span class="' . $clase . '">' . e($texto) . '</span>';
+}
+
+function badge_rol(string $rol): string
+{
+    $clase = $rol === 'admin' ? 'badge-admin' : 'badge-consulta';
+
+    return '<span class="' . $clase . '">' . e(ucfirst($rol)) . '</span>';
+}
