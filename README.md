@@ -2,7 +2,7 @@
 
 Sistema web para el control de inventario de computadoras (PC de escritorio y laptops) de la organización: asignaciones a empleados, reportes por área, reportes de garantías activas y reportes por año de adquisición.
 
-Stack: **PHP puro (sin frameworks) + PDO + MariaDB**, sin dependencias externas.
+Stack: **PHP puro (sin frameworks) + PDO + MariaDB**, con Tailwind CSS y Chart.js para la interfaz (ambos compilados/vendorizados de antemano, sin build step ni dependencias de red en producción).
 
 ## Requisitos
 
@@ -43,6 +43,31 @@ Stack: **PHP puro (sin frameworks) + PDO + MariaDB**, sin dependencias externas.
 
 6. Abrir `http://localhost:8000` e iniciar sesión con el usuario creado en el paso 4.
 
+## Frontend (Tailwind CSS + Chart.js)
+
+La interfaz usa Tailwind CSS (compilado con el CLI standalone, sin Node/npm) y Chart.js (vendorizado localmente). El CSS y el JS ya vienen compilados y versionados en el repo (`public/assets/css/app.css`, `public/assets/js/chart.min.js`), así que **no hace falta nada de esto para levantar el proyecto** — solo es necesario si vas a cambiar clases de Tailwind en las vistas.
+
+Descargar las herramientas (una sola vez):
+
+```bash
+mkdir -p tools
+curl -sLo tools/tailwindcss https://github.com/tailwindlabs/tailwindcss/releases/download/v3.4.17/tailwindcss-linux-x64
+chmod +x tools/tailwindcss
+curl -sLo public/assets/js/chart.min.js https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js
+```
+
+Recompilar el CSS tras cambiar clases en cualquier `.php` de `public/` o `src/`:
+
+```bash
+./tools/tailwindcss -i ./resources/css/app.css -o ./public/assets/css/app.css --minify
+```
+
+Para desarrollo con recompilación automática:
+
+```bash
+./tools/tailwindcss -i ./resources/css/app.css -o ./public/assets/css/app.css --watch
+```
+
 ## Estructura
 
 ```
@@ -50,6 +75,8 @@ config/     Configuración y conexión PDO
 src/        Autenticación, modelos de dominio, reportes y helpers
 public/     Document root: páginas accesibles por HTTP
 sql/        Esquema de base de datos y script de siembra del admin
+resources/  Fuente de Tailwind CSS (resources/css/app.css)
+tools/      Binario standalone de Tailwind (no versionado)
 ```
 
 ## Roles
@@ -63,4 +90,4 @@ sql/        Esquema de base de datos y script de siembra del admin
 - Equipos con garantía activa (vigente a la fecha).
 - Equipos por año de adquisición.
 
-Cada reporte se puede ver en pantalla (filtrable) o exportar a CSV.
+Cada reporte se puede ver en pantalla (filtrable, con gráfico Chart.js) o exportar a CSV.
