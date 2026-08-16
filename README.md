@@ -1,4 +1,4 @@
-# Proyecto-Papa — Sistema de Control de Cómputo
+# gestion-equipos-computo — Sistema de Control de Cómputo
 
 Sistema web para el control de inventario de computadoras (PC de escritorio y laptops) de la organización: asignaciones a empleados, reportes por área, reportes de garantías activas y reportes por año de adquisición.
 
