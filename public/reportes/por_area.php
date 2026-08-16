@@ -17,7 +17,13 @@ require __DIR__ . '/../partials/layout_inicio.php';
 ?>
 <h1>Reporte de equipos por área</h1>
 
-<table>
+<div class="card mb-6">
+    <h2 class="mt-0">Equipos por área</h2>
+    <canvas id="chartAreas" height="90"></canvas>
+</div>
+
+<div class="table-wrap">
+<table class="table-base">
     <thead><tr><th>Área</th><th>Total equipos</th><th></th></tr></thead>
     <tbody>
         <?php foreach ($resumen as $fila): ?>
@@ -29,12 +35,14 @@ require __DIR__ . '/../partials/layout_inicio.php';
         <?php endforeach; ?>
     </tbody>
 </table>
+</div>
 
-<p><a class="boton" href="/reportes/por_area_csv.php<?= $areaId ? '?area_id=' . $areaId : '' ?>">Exportar CSV</a></p>
+<p><a class="btn-primary" href="/reportes/por_area_csv.php<?= $areaId ? '?area_id=' . $areaId : '' ?>">Exportar CSV</a></p>
 
 <?php if ($detalle !== null): ?>
 <h2>Detalle del área seleccionada</h2>
-<table>
+<div class="table-wrap">
+<table class="table-base">
     <thead>
         <tr><th>Tipo</th><th>Marca / Modelo</th><th>Serie</th><th>Año</th><th>Estado</th><th>Asignado a</th></tr>
     </thead>
@@ -45,7 +53,7 @@ require __DIR__ . '/../partials/layout_inicio.php';
             <td><?= e($fila['marca']) ?> <?= e($fila['modelo']) ?></td>
             <td><?= e($fila['numero_serie']) ?></td>
             <td><?= (int) $fila['anio_adquisicion'] ?></td>
-            <td><?= e($fila['estado']) ?></td>
+            <td><?= badge_estado_equipo($fila['estado']) ?></td>
             <td><?= e($fila['asignado_a'] ?? 'Sin asignar') ?></td>
         </tr>
         <?php endforeach; ?>
@@ -54,5 +62,27 @@ require __DIR__ . '/../partials/layout_inicio.php';
         <?php endif; ?>
     </tbody>
 </table>
+</div>
 <?php endif; ?>
+
+<script src="/assets/js/chart.min.js"></script>
+<script>
+const datosAreas = <?= json_encode([
+    'labels' => array_column($resumen, 'nombre'),
+    'valores' => array_map('intval', array_column($resumen, 'total_equipos')),
+], JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP) ?>;
+
+new Chart(document.getElementById('chartAreas'), {
+    type: 'bar',
+    data: {
+        labels: datosAreas.labels,
+        datasets: [{ label: 'Equipos', data: datosAreas.valores, backgroundColor: '#2563eb', borderRadius: 4 }]
+    },
+    options: {
+        responsive: true,
+        plugins: { legend: { display: false } },
+        scales: { y: { beginAtZero: true, ticks: { precision: 0 } } }
+    }
+});
+</script>
 <?php require __DIR__ . '/../partials/layout_fin.php'; ?>

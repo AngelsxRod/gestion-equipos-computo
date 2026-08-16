@@ -15,14 +15,16 @@ $filtros = [
     'vence_hasta' => $_GET['vence_hasta'] ?? '',
     'area_id' => $_GET['area_id'] ?? '',
 ];
-$equipos = ReporteGarantias::garantiasActivas(array_filter($filtros));
+$filtrosAplicados = array_filter($filtros);
+$equipos = ReporteGarantias::garantiasActivas($filtrosAplicados);
+$vencimientosPorMes = ReporteGarantias::vencimientosPorMes($filtrosAplicados);
 
 $titulo = 'Garantías activas';
 require __DIR__ . '/../partials/layout_inicio.php';
 ?>
 <h1>Equipos con garantía activa</h1>
 
-<form method="get" class="filtros">
+<form method="get" class="filter-bar">
     <div>
         <label for="vence_desde">Vence desde</label>
         <input type="date" id="vence_desde" name="vence_desde" value="<?= e($filtros['vence_desde']) ?>">
@@ -40,14 +42,20 @@ require __DIR__ . '/../partials/layout_inicio.php';
             <?php endforeach; ?>
         </select>
     </div>
-    <div><button type="submit">Filtrar</button></div>
+    <div><button type="submit" class="btn-secondary">Filtrar</button></div>
 </form>
 
+<div class="card mb-6">
+    <h2 class="mt-0">Vencimientos de garantía por mes</h2>
+    <canvas id="chartVencimientos" height="90"></canvas>
+</div>
+
 <p>
-    <a class="boton" href="/reportes/garantias_activas_csv.php?<?= http_build_query($filtros) ?>">Exportar CSV</a>
+    <a class="btn-primary" href="/reportes/garantias_activas_csv.php?<?= http_build_query($filtros) ?>">Exportar CSV</a>
 </p>
 
-<table>
+<div class="table-wrap">
+<table class="table-base">
     <thead>
         <tr><th>Equipo</th><th>Serie</th><th>Área</th><th>Proveedor</th><th>Vence</th><th>Días restantes</th></tr>
     </thead>
@@ -67,4 +75,26 @@ require __DIR__ . '/../partials/layout_inicio.php';
         <?php endif; ?>
     </tbody>
 </table>
+</div>
+
+<script src="/assets/js/chart.min.js"></script>
+<script>
+const datosVenc = <?= json_encode([
+    'labels' => array_column($vencimientosPorMes, 'mes'),
+    'valores' => array_map('intval', array_column($vencimientosPorMes, 'total')),
+], JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP) ?>;
+
+new Chart(document.getElementById('chartVencimientos'), {
+    type: 'bar',
+    data: {
+        labels: datosVenc.labels,
+        datasets: [{ label: 'Equipos que vencen', data: datosVenc.valores, backgroundColor: '#f59e0b', borderRadius: 4 }]
+    },
+    options: {
+        responsive: true,
+        plugins: { legend: { display: false } },
+        scales: { y: { beginAtZero: true, ticks: { precision: 0 } } }
+    }
+});
+</script>
 <?php require __DIR__ . '/../partials/layout_fin.php'; ?>
