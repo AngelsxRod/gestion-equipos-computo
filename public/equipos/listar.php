@@ -24,10 +24,10 @@ require __DIR__ . '/../partials/layout_inicio.php';
 ?>
 <h1>Equipos</h1>
 <?php if ($esAdmin): ?>
-    <p><a class="boton" href="/equipos/crear.php">+ Nuevo equipo</a></p>
+    <p class="mb-4"><a class="btn-primary" href="/equipos/crear.php">+ Nuevo equipo</a></p>
 <?php endif; ?>
 
-<form method="get" class="filtros">
+<form method="get" class="filter-bar">
     <div>
         <label for="tipo">Tipo</label>
         <select id="tipo" name="tipo">
@@ -54,10 +54,11 @@ require __DIR__ . '/../partials/layout_inicio.php';
             <?php endforeach; ?>
         </select>
     </div>
-    <div><button type="submit">Filtrar</button></div>
+    <div><button type="submit" class="btn-secondary">Filtrar</button></div>
 </form>
 
-<table>
+<div class="table-wrap">
+<table class="table-base">
     <thead>
         <tr>
             <th>Tipo</th>
@@ -77,10 +78,10 @@ require __DIR__ . '/../partials/layout_inicio.php';
             <td><?= e($equipo['marca']) ?> <?= e($equipo['modelo']) ?></td>
             <td><?= e($equipo['numero_serie']) ?></td>
             <td><?= (int) $equipo['anio_adquisicion'] ?></td>
-            <td><?= e($equipo['estado']) ?></td>
+            <td><?= badge_estado_equipo($equipo['estado']) ?></td>
             <td><?= e($equipo['area_nombre'] ?? '') ?></td>
             <td><?= e($equipo['asignado_a'] ?? 'Sin asignar') ?></td>
-            <td>
+            <td class="whitespace-nowrap">
                 <a href="/equipos/ver.php?id=<?= (int) $equipo['id'] ?>">Ver</a>
                 <?php if ($esAdmin): ?>
                 &nbsp;<a href="/equipos/editar.php?id=<?= (int) $equipo['id'] ?>">Editar</a>
@@ -94,4 +95,5 @@ require __DIR__ . '/../partials/layout_inicio.php';
         <?php endif; ?>
     </tbody>
 </table>
+</div>
 <?php require __DIR__ . '/../partials/layout_fin.php'; ?>

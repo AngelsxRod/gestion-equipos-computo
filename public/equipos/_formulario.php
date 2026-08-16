@@ -4,8 +4,8 @@
  * Espera: $equipo (array con valores actuales o vacíos), $areas, $error, $accionUrl.
  */
 ?>
-<?php if ($error): ?><div class="flash error"><?= e($error) ?></div><?php endif; ?>
-<form method="post" class="formulario" action="<?= e($accionUrl) ?>">
+<?php if ($error): ?><div class="flash-error"><?= e($error) ?></div><?php endif; ?>
+<form method="post" class="card max-w-2xl" action="<?= e($accionUrl) ?>">
     <?= \App\Auth\Csrf::campoHtml() ?>
     <?php if (!empty($equipo['id'])): ?>
     <input type="hidden" name="id" value="<?= (int) $equipo['id'] ?>">
@@ -54,8 +54,8 @@
     <label for="garantia_fin">Fin de garantía (opcional)</label>
     <input type="date" id="garantia_fin" name="garantia_fin" value="<?= e($equipo['garantia_fin'] ?? '') ?>">
 
-    <div class="acciones">
-        <button type="submit">Guardar</button>
-        <a class="boton secundario" href="/equipos/listar.php">Cancelar</a>
+    <div class="mt-6 flex gap-2">
+        <button type="submit" class="btn-primary">Guardar</button>
+        <a class="btn-secondary" href="/equipos/listar.php">Cancelar</a>
     </div>
 </form>

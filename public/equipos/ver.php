@@ -26,11 +26,12 @@ require __DIR__ . '/../partials/layout_inicio.php';
 ?>
 <h1><?= e($equipo['marca']) ?> <?= e($equipo['modelo']) ?></h1>
 
-<table>
+<div class="table-wrap">
+<table class="table-base">
     <tr><th>Tipo</th><td><?= e($equipo['tipo']) ?></td></tr>
     <tr><th>Número de serie</th><td><?= e($equipo['numero_serie']) ?></td></tr>
     <tr><th>Año de adquisición</th><td><?= (int) $equipo['anio_adquisicion'] ?></td></tr>
-    <tr><th>Estado</th><td><?= e($equipo['estado']) ?></td></tr>
+    <tr><th>Estado</th><td><?= badge_estado_equipo($equipo['estado']) ?></td></tr>
     <tr><th>Área</th><td><?= e($equipo['area_nombre'] ?? 'Sin asignar') ?></td></tr>
     <tr><th>Garantía</th>
         <td>
@@ -53,20 +54,22 @@ require __DIR__ . '/../partials/layout_inicio.php';
         </td>
     </tr>
 </table>
+</div>
 
 <?php if ($esAdmin): ?>
-<div class="acciones">
-    <a class="boton" href="/asignaciones/asignar.php?equipo_id=<?= (int) $equipo['id'] ?>">
+<div class="mt-6 flex gap-2">
+    <a class="btn-primary" href="/asignaciones/asignar.php?equipo_id=<?= (int) $equipo['id'] ?>">
         <?= $asignacionActiva ? 'Reasignar' : 'Asignar' ?>
     </a>
     <?php if ($asignacionActiva): ?>
-    <a class="boton secundario" href="/asignaciones/devolver.php?asignacion_id=<?= (int) $asignacionActiva['id'] ?>">Devolver</a>
+    <a class="btn-secondary" href="/asignaciones/devolver.php?asignacion_id=<?= (int) $asignacionActiva['id'] ?>">Devolver</a>
     <?php endif; ?>
 </div>
 <?php endif; ?>
 
 <h2>Historial de asignaciones</h2>
-<table>
+<div class="table-wrap">
+<table class="table-base">
     <thead>
         <tr>
             <th>Empleado</th>
@@ -89,4 +92,5 @@ require __DIR__ . '/../partials/layout_inicio.php';
         <?php endif; ?>
     </tbody>
 </table>
+</div>
 <?php require __DIR__ . '/../partials/layout_fin.php'; ?>
