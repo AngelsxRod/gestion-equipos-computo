@@ -34,12 +34,12 @@ require __DIR__ . '/../partials/layout_inicio.php';
 <h1>Eliminar empleado</h1>
 <p>¿Confirmas eliminar a "<strong><?= e($empleado['nombre_completo']) ?></strong>"?</p>
 <p><em>Nota: si tiene un equipo asignado actualmente, la asignación quedará en el historial pero el equipo seguirá mostrándose como asignado a esta persona. Devuelve el equipo primero si corresponde.</em></p>
-<form method="post" class="formulario">
+<form method="post" class="card max-w-lg">
     <?= Csrf::campoHtml() ?>
     <input type="hidden" name="id" value="<?= (int) $empleado['id'] ?>">
-    <div class="acciones">
-        <button type="submit" class="peligro">Sí, eliminar</button>
-        <a class="boton secundario" href="/empleados/listar.php">Cancelar</a>
+    <div class="mt-6 flex gap-2">
+        <button type="submit" class="btn-danger">Sí, eliminar</button>
+        <a class="btn-secondary" href="/empleados/listar.php">Cancelar</a>
     </div>
 </form>
 <?php require __DIR__ . '/../partials/layout_fin.php'; ?>

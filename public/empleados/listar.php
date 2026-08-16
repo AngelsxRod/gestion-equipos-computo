@@ -16,9 +16,10 @@ require __DIR__ . '/../partials/layout_inicio.php';
 ?>
 <h1>Empleados</h1>
 <?php if ($esAdmin): ?>
-    <p><a class="boton" href="/empleados/crear.php">+ Nuevo empleado</a></p>
+    <p><a class="btn-primary" href="/empleados/crear.php">+ Nuevo empleado</a></p>
 <?php endif; ?>
-<table>
+<div class="table-wrap">
+<table class="table-base">
     <thead>
         <tr>
             <th>Nombre</th>
@@ -49,4 +50,5 @@ require __DIR__ . '/../partials/layout_inicio.php';
         <?php endif; ?>
     </tbody>
 </table>
+</div>
 <?php require __DIR__ . '/../partials/layout_fin.php'; ?>

@@ -35,8 +35,8 @@ $titulo = 'Nuevo empleado';
 require __DIR__ . '/../partials/layout_inicio.php';
 ?>
 <h1>Nuevo empleado</h1>
-<?php if ($error): ?><div class="flash error"><?= e($error) ?></div><?php endif; ?>
-<form method="post" class="formulario">
+<?php if ($error): ?><div class="flash-error"><?= e($error) ?></div><?php endif; ?>
+<form method="post" class="card max-w-lg">
     <?= Csrf::campoHtml() ?>
     <label for="nombre_completo">Nombre completo</label>
     <input type="text" id="nombre_completo" name="nombre_completo" value="<?= e($_POST['nombre_completo'] ?? '') ?>" required autofocus>
@@ -52,9 +52,9 @@ require __DIR__ . '/../partials/layout_inicio.php';
         <?php endforeach; ?>
     </select>
 
-    <div class="acciones">
-        <button type="submit">Guardar</button>
-        <a class="boton secundario" href="/empleados/listar.php">Cancelar</a>
+    <div class="mt-6 flex gap-2">
+        <button type="submit" class="btn-primary">Guardar</button>
+        <a class="btn-secondary" href="/empleados/listar.php">Cancelar</a>
     </div>
 </form>
 <?php require __DIR__ . '/../partials/layout_fin.php'; ?>
